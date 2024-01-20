@@ -15,6 +15,9 @@ const SpotifyComponent = () => {
       } else {
         const accessToken = await getAccessToken(clientId, code);
         const profile = await fetchProfile(accessToken);
+        // const data = await fetchWebApi(`BQAFnvfd3ERmkfCj84BUL16cF5UjIERfGBxX3Uv646pG_PidLyEUB0kA-aID4ZzL2KmXByG-OVrH61qAERfAAVLuN3MVOkflnWt_kZDd9rRiTxmAnP8`, `v1/me/top/tracks?time_range=long_term&limit=5`, 'GET').items
+        // setProfileData(profile);
+        // console.log(data);
         setProfileData(profile);
       }
     }
@@ -87,6 +90,18 @@ const SpotifyComponent = () => {
     return await result.json();
   }
 
+  // async function fetchWebApi(token, endpoint, method, body){
+  //   const result = await fetch(`https://api.spotify.com/${endpoint}`, {
+  //     headers: {
+  //       Authorization: `Bearer ${token}`,
+  //     },
+  //     method,
+  //     body:JSON.stringify(body)
+  //   });
+
+  //   return await result.json();
+  // }
+
   console.log(JSON.stringify(profileData));
   return (
     <>
@@ -94,6 +109,7 @@ const SpotifyComponent = () => {
         <>
           <h1>Display your Spotify profile data</h1>
 
+          <p>{profileData.items}</p>
           <section id="profile">
             <h2>
               Logged in as{" "}
