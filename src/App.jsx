@@ -20,7 +20,7 @@ const SpotifyComponent = () => {
         // console.log(topTracks.map(({name, artists})=>{
         //   `${name} by ${artists.map(artist => artist.name).join(', ')}`
         // }))
-        console.log(topTracks);
+        console.log(topTracks.map(tracks=>tracks.name));
         // setProfileData(profile);
         // console.log(data);
         // setProfileData(profile);
@@ -98,7 +98,7 @@ const SpotifyComponent = () => {
   }
 
   async function getTopTracks(token){
-    return (await fetchWebApi(token));
+    return (await fetchWebApi(token)).items;
   }
 
   // async function fetchProfile(token) {
