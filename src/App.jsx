@@ -14,11 +14,16 @@ const SpotifyComponent = () => {
         redirectToAuthCodeFlow(clientId);
       } else {
         const accessToken = await getAccessToken(clientId, code);
-        const profile = await fetchProfile(accessToken);
+        // const profile = await fetchProfile(accessToken);
         // const data = await fetchWebApi(`BQAFnvfd3ERmkfCj84BUL16cF5UjIERfGBxX3Uv646pG_PidLyEUB0kA-aID4ZzL2KmXByG-OVrH61qAERfAAVLuN3MVOkflnWt_kZDd9rRiTxmAnP8`, `v1/me/top/tracks?time_range=long_term&limit=5`, 'GET').items
+        const topTracks = await getTopTracks(accessToken);
+        // console.log(topTracks.map(({name, artists})=>{
+        //   `${name} by ${artists.map(artist => artist.name).join(', ')}`
+        // }))
+        console.log(topTracks);
         // setProfileData(profile);
         // console.log(data);
-        setProfileData(profile);
+        // setProfileData(profile);
       }
     }
     handleProfile();
@@ -34,10 +39,10 @@ const SpotifyComponent = () => {
     params.append("client_id", clientId);
     params.append("response_type", "code");
     params.append("redirect_uri", import.meta.env.VITE_CALLBACK_URL);
-    params.append("scope", "user-read-private user-read-email");
+    params.append("scope", "user-read-private user-read-email user-top-read");
     params.append("code_challenge_method", "S256");
     params.append("code_challenge", challenge);
-    console.log(params.toString());
+    // console.log(params.toString());
     document.location = `https://accounts.spotify.com/authorize?${params.toString()}`;
   }
 
@@ -81,14 +86,29 @@ const SpotifyComponent = () => {
     return access_token;
   }
 
-  async function fetchProfile(token) {
-    const result = await fetch("https://api.spotify.com/v1/me", {
-      method: "GET",
-      headers: { Authorization: `Bearer ${token}` },
-    });
+  async function fetchWebApi(token){
+    const res = await fetch(`https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=5`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+      method: 'GET'
+    })
 
-    return await result.json();
+    return await res.json();
   }
+
+  async function getTopTracks(token){
+    return (await fetchWebApi(token));
+  }
+
+  // async function fetchProfile(token) {
+  //   const result = await fetch("https://api.spotify.com/v1/me", {
+  //     method: "GET",
+  //     headers: { Authorization: `Bearer ${token}` },
+  //   });
+
+  //   return await result.json();
+  // }
 
   // async function fetchWebApi(token, endpoint, method, body){
   //   const result = await fetch(`https://api.spotify.com/${endpoint}`, {
@@ -102,7 +122,7 @@ const SpotifyComponent = () => {
   //   return await result.json();
   // }
 
-  console.log(JSON.stringify(profileData));
+  // console.log(JSON.stringify(profileData));
   return (
     <>
       {profileData && (
