@@ -4,59 +4,35 @@ import { getAccessToken } from "./utils/spotifyAuth";
 
 const SpotifyComponent = () => {
   const [profileData, setProfileData] = useState(null);
+  let renderRef = true;
 
   useEffect(() => {
-    async function getToken() {
-      const profile = await getAccessToken();
-      // console.log(profile.map((artist)=>artist));
-      profile.map((artist)=>{
-        console.log(artist, ' ');
-      })
+    async function render() {
+      if (renderRef) {
+        await getToken();
+      }
     }
-    getToken();
+    render();
   }, []);
 
-  // console.log(JSON.stringify(profileData));
+  async function getToken() {
+    const profile = await getAccessToken();
+    setProfileData(profile);
+    renderRef = false;
+    console.log(profile);
+  }
+
   return (
     <>
       {profileData && (
         <>
-          <h1>Display your Spotify profile data</h1>
+          <h1>Here are your top 10 artists!</h1>
 
-          <p>{profileData.items}</p>
-          <section id="profile">
-            <h2>
-              Logged in as{" "}
-              <span id="displayName">{profileData.display_name}</span>
-            </h2>
-            {/* <span id="avatar"></span> */}
-            <ul>
-              <li>
-                User ID: <span id="id">{profileData.id}</span>
-              </li>
-              <li>
-                Email: <span id="email">{profileData.email}</span>
-              </li>
-              <li>
-                Spotify URI:{" "}
-                <a id="uri" href="#">
-                  {profileData.uri}
-                </a>
-              </li>
-              <li>
-                Link:{" "}
-                <a id="url" href="#">
-                  {profileData.external_urls.spotify}
-                </a>
-              </li>
-              <li>
-                Profile Image:{" "}
-                <span id="imgUrl">
-                  <img src={profileData.images[1].url} />
-                </span>
-              </li>
-            </ul>
-          </section>
+          <ol>
+            {profileData.map((artist, index) => {
+              return <li key={index}>{artist.name}</li>;
+            })}
+          </ol>
         </>
       )}
     </>

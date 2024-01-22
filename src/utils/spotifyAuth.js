@@ -16,12 +16,7 @@ async function handleProfile() {
     // console.log(topTracks.map(({name, artists})=>{
     //   `${name} by ${artists.map(artist => artist.name).join(', ')}`
     // }))
-    console.log("HEREEE");
-    // console.log(topTracks.map((tracks) => tracks.name));
-    // setProfileData(profile);
-    // console.log(data);
-    // setProfileData(profile);
-    return (topTracks.map((tracks) => tracks.name));
+    return (topTracks);
   }
 }
 
@@ -83,7 +78,6 @@ async function requestAccessToken(clientId, code) {
 }
 
 async function fetchWebApi(token) {
-  console.log("once");
   const res = await fetch(
     // `https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=5`,
     `https://api.spotify.com/v1/me/top/artists?time_range=long_term`,
