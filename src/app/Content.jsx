@@ -24,10 +24,18 @@ const Content = () => {
 
   return (
     <>
-      <button>Get Top Tracks</button>
-      <button onClick={handleClick}>Get Top Artists</button>
+      {/* {showArtists && <SpotifyComponent />} */}
 
-      {showArtists && <SpotifyComponent />}
+      <main className="bg-[#1DB954] h-[100vh] w-[100vw] flex items-center justify-center">
+        {showArtists ? (
+          <SpotifyComponent />
+        ) : (
+          <>
+            <button className="p-4 rounded-sm font-semibold text-lg text-foreground border bg-white m-4 shadow-md" onClick={handleClick}>Get Top Artists</button>
+            <button className="p-4 rounded-sm font-semibold text-lg text-foreground border bg-white m-4 shadow-md" onClick={handleClick}>Get Top Tracks</button>
+          </>
+        )}
+      </main>
     </>
   );
 };

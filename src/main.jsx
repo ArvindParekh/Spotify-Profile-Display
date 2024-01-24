@@ -4,7 +4,7 @@ import './index.css'
 import Content from './app/Content.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <Content />
-  </React.StrictMode>,
+  // </React.StrictMode>,
 )
