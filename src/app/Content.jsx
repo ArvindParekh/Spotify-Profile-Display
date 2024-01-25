@@ -18,7 +18,7 @@ const Content = () => {
     }
   }, []);
 
-  function handleClick() {
+  function handleTopArtists() {
     setShowArtists(true);
   }
 
@@ -31,8 +31,8 @@ const Content = () => {
           <SpotifyComponent />
         ) : (
           <>
-            <button className="p-4 rounded-sm font-semibold text-lg text-foreground border bg-white m-4 shadow-md" onClick={handleClick}>Get Top Artists</button>
-            <button className="p-4 rounded-sm font-semibold text-lg text-foreground border bg-white m-4 shadow-md" onClick={handleClick}>Get Top Tracks</button>
+            <button className="p-4 rounded-sm font-semibold text-lg text-foreground border bg-white m-4 shadow-md" onClick={handleTopTracks}>Get Top Artists</button>
+            <button className="p-4 rounded-sm font-semibold text-lg text-foreground border bg-white m-4 shadow-md" onClick={handleTopArtists}>Get Top Tracks</button>
           </>
         )}
       </main>
