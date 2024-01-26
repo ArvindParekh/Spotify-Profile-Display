@@ -2,7 +2,6 @@ const getAccessToken = async () => {
   return await handleProfile();
 };
 
-
 async function handleProfile() {
   const clientId = import.meta.env.VITE_CLIENT_ID; // Replace with your client ID
   const params = new URLSearchParams(window.location.search);
@@ -17,7 +16,7 @@ async function handleProfile() {
     // console.log(topTracks.map(({name, artists})=>{
     //   `${name} by ${artists.map(artist => artist.name).join(', ')}`
     // }))
-    return (accessToken);
+    return accessToken;
   }
 }
 
@@ -78,7 +77,7 @@ async function requestAccessToken(clientId, code) {
   return access_token;
 }
 
-async function fetchWebApi(token) {
+async function fetchArtistsApi(token) {
   const res = await fetch(
     // `https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=5`,
     `https://api.spotify.com/v1/me/top/artists?time_range=long_term`,
@@ -88,14 +87,30 @@ async function fetchWebApi(token) {
       },
       method: "GET",
     }
-    );
-    
-    return await res.json();
-  }
+  );
+
+  return await res.json();
+}
+
+async function fetchTracksApi(token){
+  const res = await fetch(`https://api.spotify.com/v1/me/top/tracks?time_range=long_term`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    method: "GET",
+  })
   
-  async function getTopTracks() {
+  return await res.json();
+}
+
+async function getTopArtists() {
   const token = await getAccessToken();
-  return (await fetchWebApi(token)).items;
+  return (await fetchArtistsApi(token)).items;
+}
+
+async function getTopTracks(){
+  const token = await getAccessToken();
+  return (await fetchTracksApi(token)).items;
 }
 
 // async function fetchProfile(token) {
@@ -119,4 +134,4 @@ async function fetchWebApi(token) {
 //   return await result.json();
 // }
 
-export { getTopTracks };
+export { getTopArtists, getTopTracks };

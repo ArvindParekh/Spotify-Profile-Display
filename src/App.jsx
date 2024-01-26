@@ -7,13 +7,14 @@ const SpotifyComponent = () => {
 
   useEffect(() => {
     async function render() {
-      await getTracks();
+      await getArtists();
     }
     render();
   }, []);
 
-  async function getTracks() {
+  async function getArtists() {
     const profile = await getTopTracks();
+    console.log(profile);
     setProfileData(profile);
   }
 

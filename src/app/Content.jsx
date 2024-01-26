@@ -1,7 +1,7 @@
 import { useState } from "react";
 import SpotifyComponent from "../App";
 import { useEffect } from "react";
-import { getTopTracks } from "../utils/spotifyAuth";
+// import { getTopArtists } from "../utils/spotifyAuth";
 
 const Content = () => {
   const [showArtists, setShowArtists] = useState(false);
