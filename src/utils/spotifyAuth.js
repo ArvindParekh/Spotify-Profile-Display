@@ -2,6 +2,7 @@ const getAccessToken = async () => {
   return await handleProfile();
 };
 
+
 async function handleProfile() {
   const clientId = import.meta.env.VITE_CLIENT_ID; // Replace with your client ID
   const params = new URLSearchParams(window.location.search);
@@ -12,11 +13,11 @@ async function handleProfile() {
   } else {
     const accessToken = await requestAccessToken(clientId, code);
     // const profile = await fetchProfile(accessToken);
-    const topTracks = await getTopTracks(accessToken);
+    // const topTracks = await getTopTracks(accessToken);
     // console.log(topTracks.map(({name, artists})=>{
     //   `${name} by ${artists.map(artist => artist.name).join(', ')}`
     // }))
-    return (topTracks);
+    return (accessToken);
   }
 }
 
@@ -87,12 +88,13 @@ async function fetchWebApi(token) {
       },
       method: "GET",
     }
-  );
-
-  return await res.json();
-}
-
-async function getTopTracks(token) {
+    );
+    
+    return await res.json();
+  }
+  
+  async function getTopTracks() {
+  const token = await getAccessToken();
   return (await fetchWebApi(token)).items;
 }
 
@@ -117,4 +119,4 @@ async function getTopTracks(token) {
 //   return await result.json();
 // }
 
-export { getAccessToken };
+export { getTopTracks };

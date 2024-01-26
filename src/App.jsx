@@ -1,25 +1,20 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import { getAccessToken } from "./utils/spotifyAuth";
+import { getTopTracks } from "./utils/spotifyAuth";
 
 const SpotifyComponent = () => {
   const [profileData, setProfileData] = useState(null);
-  // let renderRef = true;
 
   useEffect(() => {
     async function render() {
-      // if (renderRef) {
-      await getToken();
-      // }
+      await getTracks();
     }
     render();
   }, []);
 
-  async function getToken() {
-    const profile = await getAccessToken();
+  async function getTracks() {
+    const profile = await getTopTracks();
     setProfileData(profile);
-    // renderRef = false;
-    console.log(profileData);
   }
 
   return (
