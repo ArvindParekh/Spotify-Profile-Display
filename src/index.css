@@ -56,10 +56,5 @@ body, html{
 }
 
 body {
-  background-color: white;
-  display: flex;
-  color: black;
   font-family: 'Inter', sans-serif;
-  align-items: center;
-  justify-content: center;
 }
